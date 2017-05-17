@@ -1,8 +1,8 @@
 #!/bin/bash
 
 ip_gt(){
-# check if one IPv4 address is greater than the other
-# eg.: ip_gt 192.168.0.1 10.0.0.1
+# check if one IPv4 address is greater than another
+# e.g.: ip_gt 192.168.0.1 10.0.0.1
 
     ip1=( ${1//\./\ } )
     ip2=( ${2//\./\ } )
@@ -22,7 +22,7 @@ ip_gt(){
 }
 
 ip_in_subnet(){
-# check if IPv4 address belongs to subnet
+# check if an IPv4 address belongs to a subnet
 # e.g.: ip_in_subnet 192.168.0.1 192.168.0.0/24
 
     ip=$1
@@ -39,7 +39,7 @@ ip_in_subnet(){
 }
 
 my_ip(){
-# print IPv4 address on Linux machine that is used to access the default route
+# print an IPv4 address on a Linux machine that is used to access the default route
 # e.g.: my_ip
 
     droute=$(ip ro | grep -Eo "default via [0-9\.]+" | cut -d' ' -f3)
