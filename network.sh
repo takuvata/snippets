@@ -20,11 +20,7 @@ ip_in_subnet(){
     eval $(ipcalc -n $subnet)
     eval $(ipcalc -b $subnet)
 
-    if ip_gt $ip $NETWORK && ! ip_gt $ip $BROADCAST; then
-        return 0
-    fi
-
-    return 1
+    ip_gt $ip $NETWORK && ! ip_gt $ip $BROADCAST
 }
 
 my_ip(){
