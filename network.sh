@@ -7,25 +7,18 @@ ip_gt(){
     ip1=( ${1//\./\ } )
     ip2=( ${2//\./\ } )
 
+    result=2
     for octet in {0..3}; do
-        [ ${ip1[$octet]} -lt ${ip2[$octet]} ] && return 1
+        if [ ${ip1[$octet]} -gt ${ip2[$octet]} ]; then
+	    [ $result -eq 1 ] || result=0
+        fi
+
+        if [ ${ip1[$octet]} -lt ${ip2[$octet]} ]; then
+	    [ $result -eq 0 ] || result=1
+	fi
     done
 
-    return 0
-}
-
-ip_lt(){
-# check if one IPv4 address is lesser than the other
-# e.g.: ip_lt 10.0.0.1 192.168.0.1
-
-    ip1=( ${1//\./\ } )
-    ip2=( ${2//\./\ } )
-
-    for octet in {0..3}; do
-        [ ${ip1[$octet]} -gt ${ip2[$octet]} ] && return 1
-    done
-
-    return 0
+    return $result
 }
 
 ip_in_subnet(){
@@ -38,7 +31,7 @@ ip_in_subnet(){
     export $(ipcalc -n $subnet)
     export $(ipcalc -b $subnet)
 
-    if ip_gt $ip $NETWORK && ip_lt $ip $BROADCAST; then
+    if ip_gt $ip $NETWORK && ! ip_gt $ip $BROADCAST; then
         return 0
     fi
 
