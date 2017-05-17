@@ -10,6 +10,7 @@ ip_gt(){
     for octet in {0..3}; do
         [ ${ip1[$octet]} -lt ${ip2[$octet]} ] && return 1
     done
+
     return 0
 }
 
@@ -54,7 +55,6 @@ my_ip(){
     [ -z $droute ] && return 1
 
     for subnet in $subnets; do
-
         if ip_in_subnet $droute $subnet; then
             ip ro | grep $subnet | grep -Eo src\ [0-9\.]+ | cut -d' ' -f2
             break
