@@ -4,21 +4,10 @@ ip_gt(){
 # check if one IPv4 address is greater than another
 # e.g.: ip_gt 192.168.0.1 10.0.0.1
 
-    ip1=( ${1//\./\ } )
-    ip2=( ${2//\./\ } )
+    ip1=${1//\./}
+    ip2=${2//\./}
 
-    result=2
-    for octet in {0..3}; do
-        if [ ${ip1[$octet]} -gt ${ip2[$octet]} ]; then
-	    [ $result -eq 1 ] || result=0
-        fi
-
-        if [ ${ip1[$octet]} -lt ${ip2[$octet]} ]; then
-	    [ $result -eq 0 ] || result=1
-	fi
-    done
-
-    return $result
+    [ $ip1 -gt $ip2 ]
 }
 
 ip_in_subnet(){
