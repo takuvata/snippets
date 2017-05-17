@@ -28,8 +28,8 @@ ip_in_subnet(){
     ip=$1
     subnet=$2
 
-    export $(ipcalc -n $subnet)
-    export $(ipcalc -b $subnet)
+    eval $(ipcalc -n $subnet)
+    eval $(ipcalc -b $subnet)
 
     if ip_gt $ip $NETWORK && ! ip_gt $ip $BROADCAST; then
         return 0
